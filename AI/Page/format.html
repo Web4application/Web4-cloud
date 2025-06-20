@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Formatter</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; background-color: #2f3136; color: #dcddde; }
+    h1 { color: #ffffff; }
+    textarea { width: 100%; height: 200px; background-color: #40444b; border: none; border-radius: 8px; color: #dcddde; padding: 12px; font-size: 14px; }
+    button { margin: 0.5rem; padding: 0.6rem 1.2rem; font-weight: bold; cursor: pointer; border: none; border-radius: 6px; background-color: #5865f2; color: white; }
+    button:hover { background-color: #4752c4; }
+    #taskStatus { margin-top: 1rem; }
+  </style>
+  <script src="https://mlc.ai/web-llm/dist/index.js"></script>
+  <script src="utils.js"></script>
+</head>
+<body>
+
+<h1>AI Formatter</h1>
+<div id="taskStatus">Waiting to run format the code...</div>
+<textarea id="inputCode" placeholder="Paste your code here to format the code..."></textarea><br>
+
+<button onclick="runTask()">Run Format Code</button>
+<button onclick="saveResult()">Save</button>
+<button onclick="redo()">Redo</button>
+<button onclick="goBack()">Back</button>
+
+<script>
+  let model, lastResult = '';
+
+  async function loadModel() {
+    document.getElementById('taskStatus').textContent = 'Loading model...';
+    model = await mlc.llm.load({
+      model: "llama2-7b-chat.ggmlv3.q4_0.bin",
+      verbose: true
+    });
+    document.getElementById('taskStatus').textContent = 'Model loaded! Ready to format the code.';
+  }
+
+  async function runTask() {
+    const code = document.getElementById('inputCode').value.trim();
+    if (!code) {
+      alert('Please enter some code.');
+      return;
+    }
+    if (!model) {
+      alert('Model not loaded yet. Loading now...');
+      await loadModel();
+    }
+
+    document.getElementById('taskStatus').textContent = 'format the code in progress...';
+    const prompt = `Format this code for best readability and standard style:\n\n${code}\n\nFormatted Code:`;
+    const output = await model.generate(prompt, {
+      max_new_tokens: 200,
+      temperature: 0.7
+    });
+    lastResult = output.text.trim();
+    document.getElementById('taskStatus').textContent = 'format the code complete! Review result below.';
+    document.getElementById('inputCode').value = lastResult;
+  }
+
+  function saveResult() {
+    if (!lastResult) {
+      alert('No results to save.');
+      return;
+    }
+    const key = generateFilename('format');
+    localStorage.setItem(key, lastResult);
+    alert(`Saved result as "${key}".`);
+  }
+
+  function redo() {
+    if (!lastResult) {
+      alert('No previous result to redo.');
+      return;
+    }
+    document.getElementById('inputCode').value = lastResult;
+    runTask();
+  }
+
+  function goBack() {
+    window.location.href = 'index.html';
+  }
+
+  loadModel().catch(err => {
+    document.getElementById('taskStatus').textContent = 'Failed to load model.';
+    console.error(err);
+  });
+</script>
+
+</body>
+</html>
