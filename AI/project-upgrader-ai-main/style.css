@@ -1,0 +1,71 @@
+/* Overall body styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #2c2f36, #23272a); /* Discord-like gradient background */
+  color: #fff; /* White text to contrast the dark background */
+}
+
+/* Header (h1) styling */
+h1 {
+  color: #ffffff;
+  text-align: center;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+/* Button styling */
+button {
+  background-color: #7289da; /* Discord blue color */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin: 10px;
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #5a6bdb; /* Slightly darker blue on hover */
+}
+
+/* File input styling */
+input[type="file"] {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #2f3136;
+  color: #fff;
+  border: 1px solid #7289da;
+  width: 100%;
+}
+
+/* Output section styling */
+#output {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #2f3136;
+  border: 1px solid #4f545c;
+  border-radius: 5px;
+  color: #b9bbbe; /* Light gray text for the output */
+  font-size: 1em;
+  white-space: pre-wrap; /* Allows the output to wrap properly */
+}
+
+/* Adding a subtle hover effect on the input */
+input[type="file"]:hover {
+  background-color: #23272a;
+  border-color: #99aab5;
+}
+
+/* General layout adjustments */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.6); /* Dark transparent background for content */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
