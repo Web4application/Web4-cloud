@@ -1,0 +1,12 @@
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #0e0e0e;
+  color: #f2f2f2;
+  scroll-behavior: smooth;
+}
+a {
+  color: #61dafb;
+  text-decoration: none;
+}
