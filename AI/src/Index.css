@@ -1,0 +1,54 @@
+/* index.css */
+
+/* Reset some basic browser styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set default body styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f0f0;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure proper scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Styling for the entire app container */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Optional: Global link styling (if you use links anywhere) */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  color: #007bff;
+}
+
+/* Add a simple animation for page load */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+body {
+  animation: fadeIn 1s ease-in-out;
+}

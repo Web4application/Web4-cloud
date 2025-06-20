@@ -1,0 +1,74 @@
+/* App.css */
+
+/* General styling for the app */
+.App {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+  background-color: #f4f4f9;
+}
+
+/* Header styling */
+.App-header {
+  background-color: #282c34;
+  color: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+.App-header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.App-header p {
+  font-size: 1.2rem;
+}
+
+/* Styling for the content sections */
+section {
+  margin: 20px 0;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Loading spinner message */
+.loading-spinner {
+  font-size: 20px;
+  color: blue;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+/* Footer styling */
+.App-footer {
+  background-color: #282c34;
+  color: white;
+  padding: 10px;
+  margin-top: 30px;
+  text-align: center;
+}
