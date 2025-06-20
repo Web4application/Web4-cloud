@@ -1,0 +1,23 @@
+
+{
+  "build": {
+    "builder": "NIXPACKS",
+    "nixpacksPlan": {
+      "phases": {
+        "install": {
+          "commands": ["go mod tidy"]
+        },
+        "build": {
+          "commands": ["go build -o web4app main.go"]
+        },
+        "start": {
+          "cmd": "./web4app"
+        }
+      }
+    }
+  },
+  "deploy": {
+    "startCommand": "./web4app",
+    "restartPolicyType": "ON_FAILURE"
+  }
+}

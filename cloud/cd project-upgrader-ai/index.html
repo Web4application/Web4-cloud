@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Web4 AI Project Assistant</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://unpkg.com/localforage/dist/localforage.min.js"></script>
+  <script src="https://mlc.ai/web-llm/dist/index.js"></script>
+</head>
+<body>
+
+  <header>
+    <h1>Web4 AI Project Assistant</h1>
+  </header>
+
+  <!-- File Management Section -->
+  <section id="fileManagement">
+    <h2>File Management</h2>
+    <input type="file" id="fileInput" multiple />
+    <button onclick="loadFiles()">Load Files</button>
+    <button onclick="downloadAll()">Download Project</button>
+  </section>
+
+  <hr>
+
+  <!-- AI Operations Section -->
+  <section id="aiOperations">
+    <h2>AI Options</h2>
+    <label>
+      <input type="checkbox" id="toggleOnlineAI" checked> Use Online GPT-4
+    </label>
+    <div>
+      <button onclick="runAIRefactor()">Run AI Refactor</button>
+      <button onclick="runAnalysis()">Analyze Code</button>
+      <button onclick="runDocGen()">Generate Documentation</button>
+      <button onclick="runFormat()">Format Code</button>
+      <button onclick="runUnitTests()">Generate Unit Tests</button>
+      <button onclick="runCommenting()">Add Code Comments</button>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- Local Storage Section -->
+  <section id="localStorage">
+    <h2>Local Storage</h2>
+    <button onclick="saveToLocal()">Save to Local Storage</button>
+    <button onclick="loadFromLocal()">Load from Local Storage</button>
+  </section>
+
+  <hr>
+  <!-- Output Section -->
+  <section id="outputSection">
+    <div id="output"></div>
+  </section>
+
+  <script src="assistance.js"></script>
+</body>
+</html>
