@@ -1,0 +1,13 @@
+
+{
+  "build": {
+    "builder": "NIXPACKS"
+  },
+  "deploy": {
+    "startCommand": "uvicorn app:app --host 0.0.0.0 --port $PORT"
+  },
+  "env": {
+    "ALLOW_ORIGIN": "https://web4application.github.io",
+    "SENTRY_DSN": "<your-sentry-dsn>"
+  }
+}

@@ -1,0 +1,14 @@
+# Core Python packages for Web4AI
+mypy==1.12.0
+
+# Add any other core dependencies here, pinned to versions for stability
+# Example:
+fastapi==0.110.0
+ uvicorn==0.29.0
+ numpy==1.26.4
+
+# If you use a custom GitHub-hosted package, use this format:
+some-package @ git+https://github.com/username/repo.git@branch
+
+# If you depend on mypyc-compiled wheels, do NOT add `find-links` here.
+Instead, use the pip install command or config file described below.

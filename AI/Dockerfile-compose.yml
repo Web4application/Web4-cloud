@@ -1,0 +1,42 @@
+# Creating deployment scripts for Render and Railway for a FastAPI backend
+
+# render.yaml content
+render_yaml = """
+services:
+  - type: web
+    name: web4api
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app:app --host 0.0.0.0 --port 10000"
+    envVars:
+      - key: ALLOW_ORIGIN
+        value: https://web4-ai.web4app.workers.dev
+      - key: SENTRY_DSN
+        value: <https://55038c1e414932ec8d81c34e5ef120fa@o4509364065402880.ingest.de.sentry.io/4509364112457808>
+"""
+
+# railway.json content
+railway_json = """
+{
+  "build": {
+    "builder": "NIXPACKS"
+  },
+  "deploy": {
+    "startCommand": "uvicorn app:app --host 0.0.0.0 --port $PORT"
+  },
+  "env": {
+    "ALLOW_ORIGIN": "https://web4-ai.web4app.workers.dev",
+    "SENTRY_DSN": "<https://55038c1e414932ec8d81c34e5ef120fa@o4509364065402880.ingest.de.sentry.io/4509364112457808>"
+  }
+}
+"""
+
+# Save to files
+with open("/mnt/data/render.yaml", "w") as f:
+    f.write(render_yaml)
+
+with open("/mnt/data/railway.json", "w") as f:
+    f.write(railway_json)
+
+"/mnt/data/render.yaml and /mnt/data/railway.json created"

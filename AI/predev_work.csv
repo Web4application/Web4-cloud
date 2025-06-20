@@ -1,0 +1,9 @@
+Project,Task ID,Task Name,Assigned To,Start Date,End Date,Status,Priority,Notes
+web4,1,Requirements Gathering,Alice,2025-04-20,2025-04-25,In Progress,High,Meeting with stakeholders to define Web4 vision
+web4,2,UI Wireframes,Bob,2025-04-26,2025-04-30,Pending,Medium,Sketch portal flows for Web4 dApp interface
+web4,3,Backend Setup,Charlie,2025-04-27,2025-05-03,Pending,High,Init Node.js + IPFS integration
+web4,4,API Design,Dana,2025-04-28,2025-05-02,Pending,High,Design GraphQL endpoints for Web4 data layer
+web4,5,Database Modeling,Emma,2025-04-29,2025-05-04,Pending,Medium,Evaluate decentralized storage vs. traditional DB
+web4,6,Smart Contract Prototypes,Frank,2025-04-30,2025-05-07,Not Started,High,Write initial Solidity/Ink! contracts
+web4,7,Security Audit Plan,Grace,2025-05-01,2025-05-05,Not Started,High,Draft audit checklist for Web4 components
+web4,8,Gantt Chart Review,Team Lead,2025-05-02,2025-05-02,Not Started,Low,Finalize timeline visualization

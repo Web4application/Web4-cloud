@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Web4 AI Project Assistant</title>
+  <style>
+    /* Discord-style theme */
+    body {
+      background-color: #36393f;
+      color: #dcddde;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 0;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #sidebar {
+      background-color: #2f3136;
+      width: 220px;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+    #sidebar h2 {
+      margin: 0 0 1rem 0;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #ffffff;
+      user-select: none;
+    }
+    .button {
+      background-color: #5865f2;
+      border-radius: 8px;
+      color: white;
+      padding: 10px 15px;
+      margin-bottom: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      user-select: none;
+      transition: background-color 0.2s ease;
+      display: block;
+    }
+    .button:hover {
+      background-color: #4752c4;
+    }
+    #mainContent {
+      flex-grow: 1;
+      background-color: #40444b;
+      padding: 2rem;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+    #fileInput {
+      display: block;
+      margin-bottom: 1rem;
+      color: #dcddde;
+    }
+    #modelSelector {
+      margin-top: 1rem;
+      background-color: #2f3136;
+      border: none;
+      color: #dcddde;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.3rem;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="sidebar">
+    <h2>Web4 AI Tools</h2>
+    <a href="refactor.html" class="button">AI Refactor</a>
+    <a href="analyze.html" class="button">Analyze Code</a>
+    <a href="docgen.html" class="button">Generate Docs</a>
+    <a href="format.html" class="button">Format Code</a>
+    <a href="unittests.html" class="button">Generate Unit Tests</a>
+    <a href="commenting.html" class="button">Add Comments</a>
+    
+    <label for="modelSelector">Select AI Model</label>
+    <select id="modelSelector">
+      <option value="llama2-7b-chat.ggmlv3.q4_0.bin">LLaMA 2 7B Chat</option>
+      <option value="gpt4all-lora.bin">GPT4All LoRA</option>
+      <option value="wizard-vicuna-13b.bin">Wizard Vicuna 13B</option>
+      <option value="ggml-alpaca-7b-q4.bin">Alpaca 7B Q4</option>
+    </select>
+  </nav>
+
+  <main id="mainContent">
+    <h1>Welcome to Web4 AI Project Assistant</h1>
+    <p>Load your files below. Then navigate to any AI tool from the left sidebar.</p>
+
+    <input type="file" id="fileInput" multiple webkitdirectory directory />
+    <button class="button" onclick="loadFiles()">Load Files</button>
+
+    <h3>Loaded Files:</h3>
+    <ul id="fileList" style="max-height: 300px; overflow-y: auto; background: #2f3136; padding: 10px; border-radius: 8px;"></ul>
+  </main>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const fileList = document.getElementById('fileList');
+    let loadedFiles = [];
+
+    function loadFiles() {
+      loadedFiles = Array.from(fileInput.files);
+      fileList.innerHTML = '';
+      if (loadedFiles.length === 0) {
+        fileList.innerHTML = '<li>No files loaded.</li>';
+        return;
+      }
+      loadedFiles.forEach(file => {
+        const li = document.createElement('li');
+        li.textContent = file.webkitRelativePath || file.name;
+        fileList.appendChild(li);
+      });
+      alert(`${loadedFiles.length} files loaded successfully!`);
+    }
+
+    // Save the selected model globally for other pages via localStorage
+    const modelSelector = document.getElementById('modelSelector');
+    modelSelector.value = localStorage.getItem('selectedModel') || modelSelector.value;
+
+    modelSelector.addEventListener('change', () => {
+      localStorage.setItem('selectedModel', modelSelector.value);
+      alert(`AI Model set to: ${modelSelector.options[modelSelector.selectedIndex].text}`);
+    });
+  </script>
+  
+</body>
+</html>

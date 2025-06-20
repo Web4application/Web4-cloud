@@ -1,0 +1,13 @@
+
+services:
+  - type: web
+    name: web4api
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app:app --host 0.0.0.0 --port 10000"
+    envVars:
+      - key: ALLOW_ORIGIN
+        value: https://web4application.github.io
+      - key: SENTRY_DSN
+        value: <your-sentry-dsn>
