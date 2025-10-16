@@ -5,7 +5,7 @@ mypy==1.12.0
 # Example:
 fastapi==0.110.0
  uvicorn==0.29.0
- numpy==1.26.4
+ numpy==2.3.4
 
 # If you use a custom GitHub-hosted package, use this format:
 some-package @ git+https://github.com/username/repo.git@branch
