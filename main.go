@@ -11,87 +11,99 @@ import (
 
 type Config struct {
 	// Job-defined
-	taskNum    string
-	attemptNum string
+	TaskNum    string
+	AttemptNum string
 
 	// User-defined
-	sleepMs  int64
-	failRate float64
+	SleepMs  int64
+	FailRate float64
 }
 
+// Load configuration from environment variables
 func configFromEnv() (Config, error) {
 	// Job-defined
 	taskNum := os.Getenv("CLOUD_RUN_TASK_INDEX")
 	attemptNum := os.Getenv("CLOUD_RUN_TASK_ATTEMPT")
+
 	// User-defined
 	sleepMs, err := sleepMsToInt(os.Getenv("SLEEP_MS"))
-	failRate, err := failRateToFloat(os.Getenv("FAIL_RATE"))
-
 	if err != nil {
-		return Config{}, err
+		return Config{}, fmt.Errorf("invalid SLEEP_MS: %v", err)
+	}
+
+	failRate, err := failRateToFloat(os.Getenv("FAIL_RATE"))
+	if err != nil {
+		return Config{}, fmt.Errorf("invalid FAIL_RATE: %v", err)
 	}
 
 	config := Config{
-		taskNum:    taskNum,
-		attemptNum: attemptNum,
-		sleepMs:    sleepMs,
-		failRate:   failRate,
+		TaskNum:    taskNum,
+		AttemptNum: attemptNum,
+		SleepMs:    sleepMs,
+		FailRate:   failRate,
 	}
+
 	return config, nil
 }
 
+// Convert sleepMs string to int64, default to 0
 func sleepMsToInt(s string) (int64, error) {
-	sleepMs, err := strconv.ParseInt(s, 10, 64)
-	return sleepMs, err
-}
-
-func failRateToFloat(s string) (float64, error) {
-	// Default empty variable to 0
 	if s == "" {
 		return 0, nil
 	}
+	return strconv.ParseInt(s, 10, 64)
+}
 
-	// Convert string to float
-	failRate, err := strconv.ParseFloat(s, 64)
-
-	// Check that rate is valid
-	if failRate < 0 || failRate > 1 {
-		return failRate, fmt.Errorf("Invalid FAIL_RATE value: %f. Must be a float between 0 and 1 inclusive.", failRate)
+// Convert failRate string to float64, must be between 0 and 1
+func failRateToFloat(s string) (float64, error) {
+	if s == "" {
+		return 0, nil
 	}
-
-	return failRate, err
+	failRate, err := strconv.ParseFloat(s, 64)
+	if err != nil {
+		return 0, err
+	}
+	if failRate < 0 || failRate > 1 {
+		return failRate, fmt.Errorf("FAIL_RATE must be between 0 and 1 inclusive, got %f", failRate)
+	}
+	if failRate == 1 {
+		log.Println("Warning: FAIL_RATE is 1.0, this task will always fail")
+	}
+	return failRate, nil
 }
 
 func main() {
+	// Seed the random number generator once
+	rand.Seed(time.Now().UnixNano())
+
+	// Load configuration
 	config, err := configFromEnv()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	log.Printf("Starting Task #%s, Attempt #%s ...", config.taskNum, config.attemptNum)
+	log.Printf("task=%s attempt=%s msg=%s", config.TaskNum, config.AttemptNum, "Starting task")
 
 	// Simulate work
-	if config.sleepMs > 0 {
-		time.Sleep(time.Duration(config.sleepMs) * time.Millisecond)
+	if config.SleepMs > 0 {
+		time.Sleep(time.Duration(config.SleepMs) * time.Millisecond)
 	}
 
-	// Simulate errors
-	if config.failRate > 0 {
-		if failure := randomFailure(config); failure != nil {
-			log.Fatalf("%v", failure)
+	// Simulate random failure
+	if config.FailRate > 0 {
+		if err := randomFailure(config); err != nil {
+			log.Fatalf("task=%s attempt=%s error=%v", config.TaskNum, config.AttemptNum, err)
 		}
 	}
 
-	log.Printf("Completed Task #%s, Attempt #%s", config.taskNum, config.attemptNum)
+	log.Printf("task=%s attempt=%s msg=%s", config.TaskNum, config.AttemptNum, "Completed task")
 }
 
-// Throw an error based on fail rate
+// Return an error randomly based on fail rate
 func randomFailure(config Config) error {
-	rand.Seed(time.Now().UnixNano())
-	randomFailure := rand.Float64()
-
-	if randomFailure < config.failRate {
-		return fmt.Errorf("Task #%s, Attempt #%s failed.", config.taskNum, config.attemptNum)
+	randomValue := rand.Float64()
+	if randomValue < config.FailRate {
+		return fmt.Errorf("Task failed randomly (failRate=%.2f)", config.FailRate)
 	}
 	return nil
 }
