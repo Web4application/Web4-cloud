@@ -1,0 +1,12 @@
+kubectl create secret generic web4-secrets \
+  --from-literal=ETH_RPC_URL='https://polygon-rpc.com' \
+  --from-literal=PRIVATE_KEY='YOUR_PRIVATE_KEY' \
+  --from-literal=OPENAI_API_KEY='YOUR_OPENAI_KEY'. 
+
+kubectl create secret generic web4-secrets \
+  --from-literal=ETH_RPC_URL='https://polygon-rpc.com' \
+  --from-literal=PRIVATE_KEY='YOUR_PRIVATE_KEY' \
+  --from-literal=OPENAI_API_KEY='YOUR_OPENAI_KEY'
+
+docker build -t your-dockerhub/web4-job-runner:latest .
+docker push your-dockerhub/web4-job-runner:latest
