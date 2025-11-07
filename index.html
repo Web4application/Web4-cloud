@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Web4 Live Dashboard</title>
+<style>
+  body[data-theme="dark"] { background: #111; color: #eee; }
+  body[data-theme="light"] { background: #f4f4f4; color: #111; }
+  #user-preferences {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #222;
+    color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    z-index: 1000;
+    width: 220px;
+  }
+  #dashboard { margin: 20px; font-family: monospace; }
+  .task { border-bottom: 1px solid #555; padding: 5px 0; }
+  .task.success { color: #0f0; }
+  .task.failed { color: #f00; }
+  .task.pending { color: #ff0; }
+  .task-details { display: none; margin-left: 20px; font-size: 0.9em; color: #aaa; }
+  .task-header { cursor: pointer; }
+</style>
+</head>
+<body>
+
+<!-- Preferences Panel -->
+<div id="user-preferences">
+  <h4>UI Settings</h4>
+  <label>
+    Theme:
+    <select id="theme-select">
+      <option value="dark">Dark</option>
+      <option value="light">Light</option>
+    </select>
+  </label>
+  <br/><br/>
+  
+  <label>
+    Auto-refresh (seconds):
+    <input type="number" id="auto-refresh" min="5" max="120" step="5" value="15"/>
+  </label>
+  <br/><br/>
+  
+  <label>
+    Show Full Log:
+    <input type="checkbox" id="show-full-log"/>
+  </label>
+</div>
+
+<!-- Dashboard -->
+<div id="dashboard">
+  <h2>Web4 Live Pipeline Dashboard</h2>
+  <div id="tasks"></div>
+</div>
+
+<script>
+  // --- Cookie helpers ---
+  function setCookie(name, value, days=365) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days*24*60*60*1000));
+    document.cookie = name + "=" + encodeURIComponent(value) + "; expires=" + date.toUTCString() + "; path=/";
+  }
+  function getCookie(name) {
+    const ca = document.cookie.split(';');
+    for(let i=0;i<ca.length;i++){
+      let c = ca[i].trim();
+      if(c.indexOf(name+'=')==0) return decodeURIComponent(c.substring(name.length+1));
+    }
+    return null;
+  }
+
+  // --- User Preferences ---
+  function applyPreferences() {
+    const theme = getCookie("theme") || "dark";
+    document.body.dataset.theme = theme;
+    
+    const autoRefresh = parseInt(getCookie("autoRefresh") || "15");
+    if(window.autoRefreshInterval) clearInterval(window.autoRefreshInterval);
+    window.autoRefreshInterval = setInterval(fetchTasks, autoRefresh*1000);
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("theme-select").value = getCookie("theme") || "dark";
+    document.getElementById("auto-refresh").value = getCookie("autoRefresh") || "15";
+    document.getElementById("show-full-log").checked = getCookie("showFullLog") === "true";
+    applyPreferences();
+  });
+
+  document.getElementById("theme-select").addEventListener("change", e => { setCookie("theme", e.target.value); applyPreferences(); });
+  document.getElementById("auto-refresh").addEventListener("change", e => { setCookie("autoRefresh", e.target.value); applyPreferences(); });
+
+  // --- Fetch & Display Tasks ---
+  async function fetchTasks() {
+    try {
+      // Replace with your API endpoint returning JSON of tasks
+      const res = await fetch("/api/web4/tasks");
+      const tasks = await res.json();
+      const container = document.getElementById("tasks");
+      container.innerHTML = "";
+
+      tasks.forEach(task => {
+        const div = document.createElement("div");
+        div.className = `task ${task.status}`;
+        div.innerHTML = `
+          <div class="task-header">${task.id} | ${task.type} | Status: ${task.status}</div>
+          <div class="task-details">${task.log}</div>
+        `;
+        div.querySelector(".task-header").addEventListener("click", () => {
+          const details = div.querySelector(".task-details");
+          details.style.display = details.style.display === "block" ? "none" : "block";
+        });
+        container.appendChild(div);
+      });
+    } catch(e) {
+      console.error("Failed to fetch tasks", e);
+    }
+  }
+
+  // Initial fetch
+  fetchTasks();
+</script>
+
+</body>
+</html>
