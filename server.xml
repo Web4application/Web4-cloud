@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Server port="9005" shutdown="SHUTDOWN">
+  <!-- Shutdown port: 9005, command: "SHUTDOWN" -->
+
+  <!-- Listener to log Tomcat version at startup -->
+  <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
+
+  <Service name="Catalina">
+    
+    <!-- HTTP Connector (development) -->
+    <Connector port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" />
+
+    <!-- HTTPS Connector (SSL/Dev) -->
+    <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+               maxThreads="200"
+               SSLEnabled="true"
+               scheme="https"
+               secure="true"
+               clientAuth="false"
+               sslProtocol="TLS"
+               keystoreFile="conf/keystore.jks"
+               keystorePass="changeit" />
+
+    <!-- Engine to handle requests -->
+    <Engine name="Catalina" defaultHost="localhost">
+      <Host name="localhost" appBase="webapps"
+            unpackWARs="true" autoDeploy="true">
+        <!-- Web apps go here -->
+      </Host>
+    </Engine>
+
+  </Service>
+</Server>
