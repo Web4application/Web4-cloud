@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web4-job-runner
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web4-job-runner
+  template:
+    metadata:
+      labels:
+        app: web4-job-runner
+    spec:
+      containers:
+        - name: web4-runner
+          image: your-dockerhub/web4-job-runner:latest
+          env:
+            - name: CONFIG_JSON
+              value: '{
+                "max_concurrency": 3,
+                "max_retries": 2,
+                "pipeline": [
+                  {"id": 1, "type": "download", "payload": "https://httpbin.org/get", "next":[
+                    {"id":2,"type":"ai","payload":"Summarize content","next":[
+                      {"id":3,"type":"blockchain","payload":"mintNFT:0xContract","next":[
+                        {"id":4,"type":"storage","payload":"/tmp/content.txt"}
+                      ]}
+                    ]}
+                  ]}
+                ]
+              }'
+            - name: ETH_RPC_URL
+              valueFrom:
+                secretKeyRef:
+                  name: web4-secrets
+                  key: ETH_RPC_URL
+            - name: PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: web4-secrets
+                  key: PRIVATE_KEY
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: web4-secrets
+                  key: OPENAI_API_KEY
+          ports:
+            - containerPort: 2112
