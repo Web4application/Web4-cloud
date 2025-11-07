@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: web4-job-cron
+spec:
+  schedule: "*/5 * * * *"  # every 5 minutes
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: web4-runner
+              image: your-dockerhub/web4-job-runner:latest
+              env:
+                - name: ETH_RPC_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: web4-secrets
+                      key: eth_rpc_url
+                - name: PRIVATE_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: web4-secrets
+                      key: private_key
+                - name: CONFIG_JSON
+                  value: '{"max_concurrency":2,"max_retries":1}'
+          restartPolicy: OnFailure
