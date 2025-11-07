@@ -1,109 +1,173 @@
 package main
 
 import (
+	"context"
+	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"math/rand"
+	"net/http"
 	"os"
-	"strconv"
+	"sync"
+	"sync/atomic"
 	"time"
 )
 
+// --------------------- CONFIG ---------------------
 type Config struct {
-	// Job-defined
-	TaskNum    string
-	AttemptNum string
-
-	// User-defined
-	SleepMs  int64
-	FailRate float64
+	MaxConcurrency int      `json:"max_concurrency"`
+	MaxRetries     int      `json:"max_retries"`
+	Tasks          []TaskSpec `json:"tasks"` // list of tasks to execute
 }
 
-// Load configuration from environment variables
-func configFromEnv() (Config, error) {
-	// Job-defined
-	taskNum := os.Getenv("CLOUD_RUN_TASK_INDEX")
-	attemptNum := os.Getenv("CLOUD_RUN_TASK_ATTEMPT")
-
-	// User-defined
-	sleepMs, err := sleepMsToInt(os.Getenv("SLEEP_MS"))
-	if err != nil {
-		return Config{}, fmt.Errorf("invalid SLEEP_MS: %v", err)
-	}
-
-	failRate, err := failRateToFloat(os.Getenv("FAIL_RATE"))
-	if err != nil {
-		return Config{}, fmt.Errorf("invalid FAIL_RATE: %v", err)
-	}
-
-	config := Config{
-		TaskNum:    taskNum,
-		AttemptNum: attemptNum,
-		SleepMs:    sleepMs,
-		FailRate:   failRate,
-	}
-
-	return config, nil
+// TaskSpec defines a single task in Web4
+type TaskSpec struct {
+	Type    string `json:"type"`    // "download", "ai", "blockchain", "storage"
+	Payload string `json:"payload"` // URL, AI prompt, smart contract, file path, etc.
 }
 
-// Convert sleepMs string to int64, default to 0
-func sleepMsToInt(s string) (int64, error) {
-	if s == "" {
-		return 0, nil
+// Load configuration from env JSON or defaults
+func loadConfig() Config {
+	cfg := Config{
+		MaxConcurrency: 3,
+		MaxRetries:     2,
+		Tasks: []TaskSpec{
+			{Type: "download", Payload: "https://httpbin.org/get"},
+			{Type: "ai", Payload: "Generate AI text for Web4 article"},
+			{Type: "blockchain", Payload: "0xContractAddress:mintNFT"},
+			{Type: "storage", Payload: "/tmp/sample.txt"},
+		},
 	}
-	return strconv.ParseInt(s, 10, 64)
+	if v := os.Getenv("CONFIG_JSON"); v != "" {
+		json.Unmarshal([]byte(v), &cfg)
+	}
+	return cfg
 }
 
-// Convert failRate string to float64, must be between 0 and 1
-func failRateToFloat(s string) (float64, error) {
-	if s == "" {
-		return 0, nil
-	}
-	failRate, err := strconv.ParseFloat(s, 64)
-	if err != nil {
-		return 0, err
-	}
-	if failRate < 0 || failRate > 1 {
-		return failRate, fmt.Errorf("FAIL_RATE must be between 0 and 1 inclusive, got %f", failRate)
-	}
-	if failRate == 1 {
-		log.Println("Warning: FAIL_RATE is 1.0, this task will always fail")
-	}
-	return failRate, nil
+// --------------------- TASK RUNNER ---------------------
+type Task struct {
+	ID        int
+	Spec      TaskSpec
+	MaxRetries int
 }
 
-func main() {
-	// Seed the random number generator once
-	rand.Seed(time.Now().UnixNano())
+// Run executes a single task with retries
+func (t Task) Run(successCounter, failureCounter *int32) {
+	for attempt := 0; attempt <= t.MaxRetries; attempt++ {
+		logTask(t.ID, attempt, fmt.Sprintf("Starting task type=%s payload=%s", t.Spec.Type, t.Spec.Payload))
 
-	// Load configuration
-	config, err := configFromEnv()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	log.Printf("task=%s attempt=%s msg=%s", config.TaskNum, config.AttemptNum, "Starting task")
-
-	// Simulate work
-	if config.SleepMs > 0 {
-		time.Sleep(time.Duration(config.SleepMs) * time.Millisecond)
-	}
-
-	// Simulate random failure
-	if config.FailRate > 0 {
-		if err := randomFailure(config); err != nil {
-			log.Fatalf("task=%s attempt=%s error=%v", config.TaskNum, config.AttemptNum, err)
+		var err error
+		switch t.Spec.Type {
+		case "download":
+			err = taskDownload(t.Spec.Payload)
+		case "ai":
+			err = taskAI(t.Spec.Payload)
+		case "blockchain":
+			err = taskBlockchain(t.Spec.Payload)
+		case "storage":
+			err = taskStorage(t.Spec.Payload)
+		default:
+			err = fmt.Errorf("unknown task type %s", t.Spec.Type)
 		}
-	}
 
-	log.Printf("task=%s attempt=%s msg=%s", config.TaskNum, config.AttemptNum, "Completed task")
+		if err != nil {
+			logTask(t.ID, attempt, fmt.Sprintf("Attempt %d failed: %v", attempt, err))
+			if attempt == t.MaxRetries {
+				atomic.AddInt32(failureCounter, 1)
+			} else {
+				time.Sleep(time.Duration(500*int64(1<<attempt)) * time.Millisecond) // exponential backoff
+			}
+			continue
+		}
+
+		logTask(t.ID, attempt, fmt.Sprintf("Attempt %d succeeded", attempt))
+		atomic.AddInt32(successCounter, 1)
+		break
+	}
 }
 
-// Return an error randomly based on fail rate
-func randomFailure(config Config) error {
-	randomValue := rand.Float64()
-	if randomValue < config.FailRate {
-		return fmt.Errorf("Task failed randomly (failRate=%.2f)", config.FailRate)
+// --------------------- TASK TYPES ---------------------
+
+// Download a file from a URL
+func taskDownload(url string) error {
+	resp, err := http.Get(url)
+	if err != nil || resp.StatusCode >= 400 {
+		return fmt.Errorf("download failed: %v", err)
 	}
+	defer resp.Body.Close()
+
+	fileName := fmt.Sprintf("task_download_%d.html", rand.Intn(1000))
+	out, err := os.Create(fileName)
+	if err != nil {
+		return err
+	}
+	defer out.Close()
+	io.Copy(out, resp.Body)
 	return nil
+}
+
+// Simulate an AI task (placeholder for LLM call)
+func taskAI(prompt string) error {
+	time.Sleep(time.Millisecond * 500) // simulate AI compute time
+	log.Printf("[AI] Generated content for prompt: %s", prompt)
+	return nil
+}
+
+// Simulate blockchain interaction (placeholder)
+func taskBlockchain(contractAction string) error {
+	time.Sleep(time.Millisecond * 300) // simulate blockchain tx
+	if rand.Float64() < 0.2 {         // simulate random failure
+		return fmt.Errorf("blockchain tx failed")
+	}
+	log.Printf("[Blockchain] Executed contract action: %s", contractAction)
+	return nil
+}
+
+// Simulate decentralized storage task (IPFS, Arweave)
+func taskStorage(filePath string) error {
+	time.Sleep(time.Millisecond * 200) // simulate file upload
+	log.Printf("[Storage] Uploaded file: %s", filePath)
+	return nil
+}
+
+// --------------------- LOGGING ---------------------
+func logTask(taskID int, attempt int, msg string) {
+	entry := map[string]interface{}{
+		"timestamp": time.Now().Format(time.RFC3339),
+		"taskID":    taskID,
+		"attempt":   attempt,
+		"message":   msg,
+	}
+	data, _ := json.Marshal(entry)
+	log.Println(string(data))
+}
+
+// --------------------- MAIN ---------------------
+func main() {
+	rand.Seed(time.Now().UnixNano())
+	cfg := loadConfig()
+	log.Printf("Web4 Job Runner Configuration: %+v", cfg)
+
+	var wg sync.WaitGroup
+	sem := make(chan struct{}, cfg.MaxConcurrency)
+	var successCounter int32
+	var failureCounter int32
+
+	for i, spec := range cfg.Tasks {
+		wg.Add(1)
+		sem <- struct{}{} // acquire slot
+		go func(taskID int, taskSpec TaskSpec) {
+			defer wg.Done()
+			Task{
+				ID:        taskID,
+				Spec:      taskSpec,
+				MaxRetries: cfg.MaxRetries,
+			}.Run(&successCounter, &failureCounter)
+			<-sem // release slot
+		}(i, spec)
+	}
+
+	wg.Wait()
+	log.Printf("Web4 Job Runner complete: Success=%d, Failure=%d", successCounter, failureCounter)
 }
