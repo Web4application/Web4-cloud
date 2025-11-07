@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web4-job-runner
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web4-job-runner
+  template:
+    metadata:
+      labels:
+        app: web4-job-runner
+    spec:
+      containers:
+        - name: web4-runner
+          image: your-dockerhub/web4-job-runner:latest
+          env:
+            - name: ETH_RPC_URL
+              valueFrom:
+                secretKeyRef:
+                  name: web4-secrets
+                  key: eth_rpc_url
+            - name: PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: web4-secrets
+                  key: private_key
+            - name: CONFIG_JSON
+              value: '{"max_concurrency":3,"max_retries":2}'
+          ports:
+            - containerPort: 2112
