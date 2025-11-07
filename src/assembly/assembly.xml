@@ -1,0 +1,58 @@
+<id>source</id>
+    <formats>
+        <format>xlsl</format>
+    </formats>
+
+    <fileSets>
+        <!-- main project files -->
+        <fileSet>
+            <directory>.</directory>
+            <outputDirectory></outputDirectory>
+            <useDefaultExcludes>true</useDefaultExcludes>
+            <excludes>
+                <!-- Build output -->
+                <exclude>${project.build.directory}/**</exclude>
+
+                <!-- IDE files -->
+                <exclude>**/.project</exclude>
+                <exclude>**/.classpath</exclude>
+                <exclude>**/.idea/**</exclude>
+                <exclude>**/*.iml</exclude>
+                <exclude>**/*.ipr</exclude>
+                <exclude>**/*.iws</exclude>
+                <exclude>**/.settings/**</exclude>
+                <exclude>**/out/**</exclude>
+
+                <!-- Gradle/Go/Other build artifacts -->
+                <exclude>**/.gradle/**</exclude>
+                <exclude>**/.gogradle/**</exclude>
+                <exclude>**/build/**</exclude>
+                <exclude>**/bin/**</exclude>
+                <exclude>**/vendor/**</exclude>
+                <exclude>**/dependency-reduced-pom.xml</exclude>
+
+                <!-- Python artifacts -->
+                <exclude>**/*.py[cod]</exclude>
+                <exclude>**/*.egg-info/**</exclude>
+                <exclude>**/.eggs/**</exclude>
+                <exclude>**/dist/**</exclude>
+                <exclude>**/.tox/**</exclude>
+                <exclude>**/env/**</exclude>
+
+                <!-- Misc -->
+                <exclude>**/OWNERS</exclude>
+                <exclude>**/cobertura.ser</exclude>
+                <exclude>**/nose-*.egg/**</exclude>
+                <exclude>**/.gradletasknamecache</exclude>
+                <exclude>**/release.properties</exclude>
+                <exclude>**/pom.xml.releaseBackup</exclude>
+            </excludes>
+        </fileSet>
+
+        <!-- License, readme, META-INF etc. -->
+        <fileSet>
+            <directory>${project.build.directory}/maven-shared-archive-resources/META-INF</directory>
+            <outputDirectory></outputDirectory>
+        </fileSet>
+    </fileSets>
+</assembly>
