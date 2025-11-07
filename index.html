@@ -100,48 +100,38 @@ function getCookie(name) {
   }
   return null;
 }
-
 // --- Apply UI settings dynamically ---
 function applyPreferences() {
   const theme = getCookie("theme") || "dark";
   document.body.dataset.theme = theme;   // Assume CSS handles [data-theme="dark"] / "light"
-
   const autoRefresh = parseInt(getCookie("autoRefresh") || "15");
   if(window.autoRefreshInterval) clearInterval(window.autoRefreshInterval);
   window.autoRefreshInterval = setInterval(() => location.reload(), autoRefresh * 1000);
-
   const showFullLog = getCookie("showFullLog") === "true";
   const consoles = document.querySelectorAll(".console"); // Adjust selector for your Buildbot logs
   consoles.forEach(c => {
     c.style.display = showFullLog ? "block" : "none";
   });
 }
-
 // --- Initialize controls ---
 document.addEventListener("DOMContentLoaded", function() {
   const theme = getCookie("theme") || "dark";
   document.getElementById("theme-select").value = theme;
-
   const autoRefresh = getCookie("autoRefresh") || "15";
   document.getElementById("auto-refresh").value = autoRefresh;
-
   const showFullLog = getCookie("showFullLog") === "true";
   document.getElementById("show-full-log").checked = showFullLog;
-
   applyPreferences();
 });
-
 // --- Control event listeners ---
 document.getElementById("theme-select").addEventListener("change", e => {
   setCookie("theme", e.target.value);
   applyPreferences();
 });
-
 document.getElementById("auto-refresh").addEventListener("change", e => {
   setCookie("autoRefresh", e.target.value);
   applyPreferences();
 });
-
 document.getElementById("show-full-log").addEventListener("change", e => {
   setCookie("showFullLog", e.target.checked);
   applyPreferences();
