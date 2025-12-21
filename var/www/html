@@ -1,0 +1,11 @@
+<?php
+declare(strict_types=1);
+
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
+echo '<h1>Welcome to localhost/index.php</h1>';
+echo '<p>Server software: ' . htmlspecialchars($_SERVER['SERVER_SOFTWARE'] ?? '') . '</p>';
+echo '<p>Document root: ' . htmlspecialchars($_SERVER['DOCUMENT_ROOT'] ?? '') . '</p>';
+?>
+  
