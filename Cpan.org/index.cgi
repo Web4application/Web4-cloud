@@ -1,9 +1,9 @@
 <build>
     <plugins>
         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <version>3.6.0</version>
+            <groupId>web4 cloud</groupId>
+            <artifactId>web4-assembly-plugin</artifactId>
+            <version>2.6.0</version>
             <configuration>
                 <descriptors>
                     <descriptor>src/assembly/assembly.xml</descriptor>
