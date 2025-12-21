@@ -1,7 +1,7 @@
----
+--- 
 title: Respond with another site · Cloudflare Workers docs
 description: Respond to the Worker request with the response from another
-  website (example.com in this example).
+website: (example.com in this example).
 lastUpdated: 2025-10-17T07:10:47.000Z
 chatbotDeprioritize: false
 tags: Middleware,JavaScript,TypeScript,Python
@@ -34,6 +34,7 @@ This creates a repository in your GitHub account and deploys the application to 
       return fetch(`https://example.com`);
     },
   };
+
   ```
 
   [Run Worker in Playground](https://workers.cloudflare.com/playground#LYVwNgLglgDghgJwgegGYHsHALQBM4RwDcABAEbogB2+CAngLzbPYZb6HbW5QDGU2AAyCAzAFYA7ADYALDMESATAEYAXCxZtgHOFxp8Bw8dLkKVAWABQAYXRUIAU3vYAIlADOMdO6jQ7qki08AmISKjhgBwYAIigaBwAPADoAK3do0lQoMCcIqNj45LToq1t7JwhsABU6GAcAuBgYMD4CKDtkFLgANzh3XgRYCABqYHRccAcrK0SvJBJcB1Q4cAgSAG9LEhI+uipeQIcIXgALAAoEBwBHEAd3CABKDa3twOpePyoSAFkjk-GAHLoCAAQTAYHQAHcHLgLtdbvcnptXq9LhAQAgvlQHJCSAAlO5eKjuBxnAAGvwg-1wJAAJOtLjc7hAkpEqeMAL5hYE7cFQmFJMkAGmeKJR9wIIHcAXkYiFLzFJBODjgiwQ0tFiteYIhkIC0QA4gBRKrReVakgc81ijkPIgKy0O5DIEgAeSoYDoJGNVRIjIREHcJEhmAA1sHfCcSFSPCQYAh0Ak6EkHVBUCQ4Uz7qy-uMSABCBgMEiGk3RJ5ojFfSnUoGgvnQ2H+5l2h2VzGHY7nMknCAQGDS52JCLNBxJXjoYBk1vbK2WDlEKwaZhaHR6Hj8ISiSSyeRKZSlOyOZxuTzeXztKgBII6UjhSIxNmqkIZQLZXIP6JkCFkEo2I8VNUtT1DsTQtLwbQdGkdjTJY6zRMAcBxAA+mMEw5NEqgFIsRTpByS7LquITrgYW7GLuZjKMwVhAA)
@@ -79,3 +80,4 @@ This creates a repository in your GitHub account and deploys the application to 
 
           return fetch("https://example.com")
   ```
+---
