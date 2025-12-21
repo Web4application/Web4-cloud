@@ -1,0 +1,9 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "routes": [
+    {
+      "pattern": "example.com",
+      "custom_domain": true
+    }
+  ]
+}
