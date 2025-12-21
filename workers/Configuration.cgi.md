@@ -1,6 +1,7 @@
 ---
 title: Configuration - Wrangler · Cloudflare Workers docs
-description: Use a configuration file to customize the development and
+description: Use a configuration file to customize the development and 
+
   deployment setup for your Worker project and other Developer Platform
   products.
 lastUpdated: 2025-11-10T15:01:11.000Z
