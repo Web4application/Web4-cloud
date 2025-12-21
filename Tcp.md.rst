@@ -1,4 +1,4 @@
----
+--- 
 title: TCP sockets · Cloudflare Workers docs
 description: Use the `connect()` API to create outbound TCP connections from Workers.
 lastUpdated: 2025-08-12T20:02:42.000Z
