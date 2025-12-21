@@ -22,15 +22,12 @@ The platform is currently hosting the **SCTM Dashboard**, which allows users to 
 - **Full-stack Architecture**: Frontend + backend + cloud deployment support.  
 - **Modular and Extensible**: New pages, dashboards, or APIs can be easily added.  
 
----
-
-## Architecture
-
+<div
+<p
 <!--
   NB(chrisdickinson): if you move this file, be sure to update
   tools/doc/html.mjs to point at the new location.
 -->
-
 <!--introduced_in=v0.10.0-->
 
 * [About this documentation](documentation.md)
@@ -100,7 +97,8 @@ The platform is currently hosting the **SCTM Dashboard**, which allows users to 
 * [Web Streams API](webstreams.md)
 * [Worker threads](worker_threads.md)
 * [Zlib](zlib.md)
-
+* 
+</p>
 <hr class="line"/>
 
 * [Code repository and issue tracker](https://github.com/nodejs/node)
