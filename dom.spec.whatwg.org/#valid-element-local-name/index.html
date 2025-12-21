@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+ <head>
+  <title>Boring example</title>
+ </head>
+ <body>
+  <p>Hello <span id=x>world</span>!</p>
+  <script>
+   function test(e) {
+     debug(e.target, e.currentTarget, e.eventPhase)
+   }
+   document.addEventListener("hey", test, {capture: true})
+   document.body.addEventListener("hey", test)
+   var ev = new Event("hey", {bubbles:true})
+   document.getElementById("x").dispatchEvent(ev)
+  </script>
+ </body>
+</html>
