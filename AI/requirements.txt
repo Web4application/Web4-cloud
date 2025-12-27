@@ -3,7 +3,7 @@ mypy==1.12.0
 
 # Add any other core dependencies here, pinned to versions for stability
 # Example:
-fastapi==0.110.0
+fastapi==0.128.0
  uvicorn==0.29.0
  numpy==1.26.4
 
