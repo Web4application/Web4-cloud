@@ -1,0 +1,5 @@
+fdisk -l /dev/sda
+e2fsck.ext4 -v -f /dev/sda1
+ddrescue -f -r3 /dev/sda /dev/sdb mapfile
+fdisk -l /dev/sdb
+e2fsck.ext4 -v -f /dev/sdb1
