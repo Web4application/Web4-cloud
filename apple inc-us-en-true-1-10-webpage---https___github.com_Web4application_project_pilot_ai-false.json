@@ -1,0 +1,20 @@
+{
+    "text": "GitHub\n\n🧠 ProjectPilotAI\n\n\nProjectPilotAI is an AI-powered developer assistant that understands, analyzes, documents, and improves your codebase. It leverages cutting-edge large language models (LLMs), real-time file monitoring, GitHub integrations, and voice input to act as your second brain for software development.\n\n\n🚀 Features\n\n\n🔍 AI Codebase Analysis\n\n\n * Summarize entire repositories with GPT-4\n * Understand unfamiliar codebases in seconds\n\n\n✨ Intelligent Refactoring (Pluggable)\n\n\n * Catch smells, anti-patterns, and suggest best practices\n * Hooks for custom GPT prompts and code transformation\n\n\n🛠 Real-Time Dev Watchdog\n\n\n * Monitor file changes\n * Instantly suggest improvements or generate docs on file save\n\n\n🤖 PR Review Bot (GitHub Actions)\n\n\n * Automatically reviews pull requests\n * Flags risky changes and suggests fixes using AI\n\n\n📄 Auto-Documentation Generator\n\n\n * Create or update README.md, module docstrings, and architecture maps\n\n\n🧪 Security Scanner\n\n\n * Detect eval(), insecure file access, missing with blocks, and more\n * Pluggable AST-based Python linter\n\n\n🔈 Voice Command & TTS\n\n\n * Use Whisper to transcribe voice to code\n * Hear summaries, file info, or project status aloud via TTS\n\n\n💡 Natural Language Project Generator\n\n\n * “Create a Flask API with Docker and tests” → Done.\n * Fully code-generative workflow with AI chain of thought\n\n\n🧰 VS Code Extension (WIP)\n\n\n * Interact directly with the assistant from VS Code\n * Generate functions, review diffs, or refactor selected code\n\n\n🎨 Figma to Code Converter\n\n\n * Converts Figma JSON into component code\n * Useful for front-end engineers and designers\n\n\n🌐 Streamlit Deploy UI\n\n\n * Run the entire system from a sleek web GUI\n * Upload a project, analyze, refactor, or summarize with one click\n\n\n🧱 Architecture\n\n\nproject_pilot_ai/\n├── ai_core/\n├── cli/\n├── gui/\n├── integrations/\n├── pilot_sdk/\n├── voice/\n├── .github/\n└── vscode-plugin/\n\n\n📜 License\n\n\nMIT License © 2025 Web4application",
+    "metadata": {
+        "title": "GitHub - Web4application/project_pilot_ai: Automated AI-Powered Project Management &amp; Code Intelligence",
+        "description": "Automated AI-Powered Project Management & Code Intelligence - Web4application/project_pilot_ai",
+        "fb:app_id": "1401488693436528",
+        "twitter:title": "GitHub - Web4application/project_pilot_ai: Automated AI-Powered Project Management & Code Intelligence",
+        "twitter:description": "Automated AI-Powered Project Management & Code Intelligence - Web4application/project_pilot_ai",
+        "og:image": "https://opengraph.githubassets.com/036f29603ee18fe29a91540263725b0dbae2c5ccb53f0362a70984ca12da59dc/Web4application/project_pilot_ai",
+        "og:image:alt": "Automated AI-Powered Project Management & Code Intelligence - Web4application/project_pilot_ai",
+        "og:image:width": "1200",
+        "og:image:height": "600",
+        "og:site_name": "GitHub",
+        "og:type": "object",
+        "og:title": "GitHub - Web4application/project_pilot_ai: Automated AI-Powered Project Management & Code Intelligence",
+        "og:url": "https://github.com/Web4application/project_pilot_ai",
+        "og:description": "Automated AI-Powered Project Management & Code Intelligence - Web4application/project_pilot_ai"
+    },
+    "credits": 2
+}

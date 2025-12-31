@@ -1,0 +1,223 @@
+250722 20:33:22.475 [INFO][17991..init(with:)] Log started, build: 1.11.0.b637ec9
+250722 20:33:22.480 [INFO][17991.AppDelegate.application] App version: 1.11.0 (2506100023)
+250722 20:33:22.480 [INFO][17991.AppDelegate.application] Locale: en_US
+250722 20:33:22.495 [INFO][17991.Configuration+Structs.defaultSettings] Generate DNSSettings: Warp Enabled: true | DNSProtocol: dow
+250722 20:33:22.535 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:22.536 [INFO][17991.WarpApi+DevicePosture.getPostureRules] Started
+250722 20:33:22.537 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:22.537 [INFO][17991.WarpApi.apiEndpoint] Current base API URL: https://zero-trust-client.cloudflareclient.com/v0i2506100023
+250722 20:33:22.539 [INFO][17991.TranslationShim.translateSettings] 
+250722 20:33:22.540 [INFO][17991.TeamsConfigLoader.loadConfiguration] Loading the Teams configuration has started. Source: mdm
+250722 20:33:22.540 [INFO][17991.TeamsConfigLoader.rawConfig] MDM configuration not found for team: web4app.
+250722 20:33:22.541 [INFO][17991.TeamsConfigLoader.rawConfig] No MDM configurations found.
+250722 20:33:22.542 [INFO][17991.UserDefaults.wrappedValue] Saved web4app_app_shared_mdm_policy: nil
+250722 20:33:22.542 [INFO][17991.TeamsConfigLoader.rawConfig] MDM configuration not found for team: web4app.
+250722 20:33:22.543 [INFO][17991.TeamsConfigLoader.rawConfig] No MDM configurations found.
+250722 20:33:22.543 [INFO][17991.TeamsConfigLoader.loadConfiguration] The Teams config is missing. No configuration will be loaded.
+250722 20:33:22.547 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:22.547 [INFO][17991.WarpApi+DevicePosture.getPostureRules] Started
+250722 20:33:22.548 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:22.548 [INFO][17991.WarpApi.apiEndpoint] Current base API URL: https://zero-trust-client.cloudflareclient.com/v0i2506100023
+250722 20:33:22.566 [INFO][17991.NotificationsManager.remoteNotificationsEnabled] Registering for remote notifications.
+250722 20:33:22.620 [INFO][17991.SupportVisibleProtocol.feedbackType] Feedback Button: Not valid (teams(type: _cloudflareoneagent.TeamsType.account))
+250722 20:33:22.636 [INFO][17991.AppDelegate.applicationDidBecomeActive] 
+250722 20:33:22.647 [INFO][17991.AppDelegate.application] Did register for remote notifications and acquired a new device token.
+250722 20:33:22.650 [INFO][17991.NotificationsManager.apnsToken] Setting up FCM with new APNS token.
+250722 20:33:22.651 [INFO][17991.TunnelManager.loadDefaultManager] Loaded default manager
+250722 20:33:22.654 [INFO][17991.NotificationsManager.messaging] FCM registration token: cu8DhvXhpEYpkQosQceS0s:APA91bG6ug_WpphC010Zf3YiEhmAF1B9g7LJrhqHt5g6kulaRbuQYaaTwOkSiOas9YB11XMG_K8T-Q2UCeIWfD1ERT-3H2f2Cjgvk_Uy1Eu1UJGetulwEok
+250722 20:33:22.655 [INFO][17991.NotificationsManager.fcmToken] Updated fcmToken from nil to Optional("cu8DhvXhpEYpkQosQceS0s:APA91bG6ug_WpphC010Zf3YiEhmAF1B9g7LJrhqHt5g6kulaRbuQYaaTwOkSiOas9YB11XMG_K8T-Q2UCeIWfD1ERT-3H2f2Cjgvk_Uy1Eu1UJGetulwEok")
+250722 20:33:22.656 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:22.657 [INFO][17991.WarpApi.apiEndpoint] Current base API URL: https://zero-trust-client.cloudflareclient.com/v0i2506100023
+250722 20:33:22.657 [INFO][17991.WarpApi+Registration.patch] Started
+250722 20:33:22.660 [INFO][17991.TunnelManager.updateOnDemandRules] On demand rules updated: [
+    action = connect
+    interfaceTypeMatch = WiFi, 
+    action = connect
+    interfaceTypeMatch = cellular]
+250722 20:33:22.661 [INFO][17991.TunnelManager.updateProxySettings] Proxy settings have not changed
+250722 20:33:23.515 [INFO][17991.NotificationsManager.retrieveNewFCMToken] New FCM registration token: cu8DhvXhpEYpkQosQceS0s:APA91bG6ug_WpphC010Zf3YiEhmAF1B9g7LJrhqHt5g6kulaRbuQYaaTwOkSiOas9YB11XMG_K8T-Q2UCeIWfD1ERT-3H2f2Cjgvk_Uy1Eu1UJGetulwEok
+250722 20:33:24.629 [INFO][17991.WarpApi+DevicePosture.getPostureRules] Ended
+250722 20:33:24.630 [INFO][17991.WarpApi+DevicePosture.getPostureRules] Received Posture Rules from API. Body: {"success":true,"result":{}}
+250722 20:33:24.635 [INFO][17991.UserDefaults.wrappedValue] Saved web4app_app_shared_device_posture: Optional([])
+250722 20:33:24.640 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:24.804 [INFO][17991.WarpApi+DevicePosture.getPostureRules] Ended
+250722 20:33:24.808 [INFO][17991.WarpApi+DevicePosture.getPostureRules] Received Posture Rules from API. Body: {"success":true,"result":{}}
+250722 20:33:24.811 [INFO][17991.UserDefaults.wrappedValue] Saved web4app_app_shared_device_posture: Optional([])
+250722 20:33:24.825 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:25.591 [INFO][17991.WarpApi+Registration.patch] Ended
+250722 20:33:27.572 [INFO][17991.AppCoordinator.startInterface] Initialization timed out.
+250722 20:33:27.586 [INFO][17991.UserDefaults.wrappedValue] Saved app_local_dark_theme: true
+250722 20:33:27.627 [INFO][17991.UserDefaults.wrappedValue] Saved app_local_presented_onboarding: true
+250722 20:33:27.628 [INFO][17991.AppCoordinator.didFinishOnboarding] Finished the onboarding and show the profile installation if needed.
+250722 20:33:27.630 [INFO][17991.ServiceManager.vpnStatusDidChange] ServiceManager - Tunnel status: disconnected
+250722 20:33:27.631 [INFO][17991.TunnelManager.loadDefaultManager] Loaded default manager
+250722 20:33:27.653 [INFO][17991.AppCoordinator.presentMainView] Start and show the main screen
+250722 20:33:27.711 [INFO][17991.MainViewModel.updateStatusAndInfo] Internet connection: true, tunnel connection status: disconnected, pause: none, trusted network: none, tunnel status: No captive portal, dns status: unknown, service mode: WARP
+250722 20:33:27.711 [INFO][17991.DeviceTeamsClientDetailsSender.sendDeviceDetailsIfNeeded] Attempt to send device details to the server has started.
+250722 20:33:27.713 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_teams_correlation_id} is found.
+250722 20:33:27.716 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:27.716 [INFO][17991.WarpApi+Registration.patch] Started
+250722 20:33:27.758 [INFO][17991.TunnelManager.enable] Enabled
+250722 20:33:27.763 [INFO][17991.SupportVisibleProtocol.feedbackType] Feedback Button: Not valid (teams(type: _cloudflareoneagent.TeamsType.account))
+250722 20:33:27.774 [INFO][17991.UserDefaults.wrappedValue] Saved app_local_admin_code_date: nil
+250722 20:33:27.786 [INFO][17991.UserDefaults.wrappedValue] Saved app_local_admin_code_date: nil
+250722 20:33:27.798 [INFO][17991.ScreenName.logScreen] main
+250722 20:33:27.800 [INFO][17991.SupportVisibleProtocol.feedbackType] Feedback Button: Not valid (teams(type: _cloudflareoneagent.TeamsType.account))
+250722 20:33:27.808 [INFO][17991.UserDefaults.wrappedValue] Saved app_local_admin_code_date: nil
+250722 20:33:27.814 [INFO][17991.TunnelManager.updateOnDemandRules] On demand rules updated: [
+    action = connect
+    interfaceTypeMatch = WiFi, 
+    action = connect
+    interfaceTypeMatch = cellular]
+250722 20:33:27.814 [INFO][17991.TunnelManager.updateProxySettings] Proxy settings have not changed
+250722 20:33:27.840 [INFO][17991.TunnelManager.loadDefaultManager] Loaded default manager
+250722 20:33:27.841 [INFO][17991.TunnelManager.enable] Starting VPN tunnel after enable action
+250722 20:33:27.842 [INFO][17991.ServiceManager.vpnStatusDidChange] Loading dummy URL to force OS to restart the network extension process.
+250722 20:33:27.844 [INFO][17991.TunnelManager.enable] Enabled
+250722 20:33:27.845 [INFO][17991.TunnelManager.updateOnDemandRules] On demand rules updated: [
+    action = connect
+    interfaceTypeMatch = WiFi, 
+    action = connect
+    interfaceTypeMatch = cellular]
+250722 20:33:27.845 [INFO][17991.TunnelManager.updateProxySettings] Proxy settings have not changed
+250722 20:33:27.848 [INFO][17991.ServiceManager.vpnStatusDidChange] ServiceManager - Tunnel status: connecting
+250722 20:33:27.848 [INFO][17991.ServiceManager.vpnStatusDidChange] ServiceManager - Tunnel status: connecting
+250722 20:33:27.849 [INFO][17991.ServiceManager.vpnStatusDidChange] ServiceManager - Tunnel status: connecting
+250722 20:33:27.849 [INFO][17991.ServiceManager.vpnStatusDidChange] ServiceManager - Tunnel status: connecting
+250722 20:33:27.850 [INFO][17991.TunnelManager.loadDefaultManager] Loaded default manager
+250722 20:33:27.850 [INFO][17991.ServiceManager.vpnStatusDidChange] Loading dummy URL to force OS to restart the network extension process.
+250722 20:33:27.851 [INFO][17991.TunnelManager.updateOnDemandRules] On demand rules updated: [
+    action = connect
+    interfaceTypeMatch = WiFi, 
+    action = connect
+    interfaceTypeMatch = cellular]
+250722 20:33:27.851 [INFO][17991.TunnelManager.updateProxySettings] Proxy settings have not changed
+250722 20:33:28.262 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:28.265 [INFO][17991.WarpApi+Config.getWarpConfig] Started
+250722 20:33:28.277 [INFO][17991.WarpApi+Config.getWarpConfig] New Config Request without alternate network
+250722 20:33:28.281 [INFO][17991.WarpApi+Config.getWarpCommonConfig] Started
+250722 20:33:28.283 [INFO][17991.WarpApi.apiEndpoint] Current base API URL: https://zero-trust-client.cloudflareclient.com/v0i2506100023
+250722 20:33:28.289 [INFO][17991.WarpApi+Config.getWarpCommonConfig] Ended
+250722 20:33:28.292 [INFO][17991.UserDefaults.wrappedValue] Saved web4app_app_local_warp_api_invalid_state_error: nil
+250722 20:33:28.302 [ERROR][17991.WarpApi+Config.proccessError] _cloudflareoneagent.HttpRequestError.Error(class: "unknown", subclass: "error sending request for url (https://zero-trust-client.cloudflareclient.com/v0i2506100023/reg/t.d0afd9a1-3786-11f0-a735-b60c5bda7091)") (code 0)
+250722 20:33:28.305 [ERROR][17991.ServiceManager.setup] _cloudflareoneagent.HttpRequestError.Error(class: "unknown", subclass: "error sending request for url (https://zero-trust-client.cloudflareclient.com/v0i2506100023/reg/t.d0afd9a1-3786-11f0-a735-b60c5bda7091)") (code 0)
+250722 20:33:28.307 [INFO][17991.SupportVisibleProtocol.feedbackType] Feedback Button: Not valid (teams(type: _cloudflareoneagent.TeamsType.account))
+250722 20:33:28.308 [INFO][17991.MainViewModel.updateStatusAndInfo] Internet connection: true, tunnel connection status: connecting, pause: none, trusted network: none, tunnel status: No captive portal, dns status: unknown, service mode: WARP
+250722 20:33:28.313 [INFO][17991.UserDefaults.wrappedValue] Saved app_local_admin_code_date: nil
+250722 20:33:29.729 [INFO][17991.ServiceManager.vpnStatusDidChange] ServiceManager - Tunnel status: connected
+250722 20:33:29.729 [INFO][17991.ServiceManager.vpnStatusDidChange] ServiceManager - Tunnel status: connected
+250722 20:33:29.730 [INFO][17991.ServiceManager.vpnStatusDidChange] ServiceManager - Tunnel status: connected
+250722 20:33:29.731 [INFO][17991.ServiceManager.vpnStatusDidChange] ServiceManager - Tunnel status: connected
+250722 20:33:29.732 [INFO][17991.SupportVisibleProtocol.feedbackType] Feedback Button: Not valid (teams(type: _cloudflareoneagent.TeamsType.account))
+250722 20:33:29.734 [INFO][17991.TunnelManager.sendMessage] Sending message {"type":"getTunnelStatus"}
+250722 20:33:29.740 [INFO][17991.ServiceDNSStatusOperation.queryTXTRecord] Starting DNS TXT record query...
+250722 20:33:29.740 [INFO][17991.ConnectivityVerifier.checkNetworkConnectivity] Connectivity verifier: Connection verification has started.
+250722 20:33:29.741 [INFO][17991.MainViewModel.updateStatusAndInfo] Internet connection: true, tunnel connection status: connected, pause: none, trusted network: none, tunnel status: No captive portal, dns status: unknown, service mode: WARP
+250722 20:33:29.742 [INFO][17991.MainViewModel.updateStatusAndInfo] Internet connection: true, tunnel connection status: connected, pause: none, trusted network: none, tunnel status: No captive portal, dns status: unknown, service mode: WARP
+250722 20:33:29.742 [INFO][17991.MainViewModel.updateStatusAndInfo] Internet connection: true, tunnel connection status: connected, pause: none, trusted network: none, tunnel status: No captive portal, dns status: unknown, service mode: WARP
+250722 20:33:29.744 [INFO][17991.ConnectivityVerifier.performConnectivityCheckAttempt] Connectivity verifier: Taking attempt no 1
+250722 20:33:29.744 [INFO][17991.UserDefaults.wrappedValue] Saved app_local_admin_code_date: nil
+250722 20:33:29.747 [INFO][17991.UserDefaults.wrappedValue] Saved app_local_admin_code_date: nil
+250722 20:33:29.750 [INFO][17991.UserDefaults.wrappedValue] Saved app_local_admin_code_date: nil
+250722 20:33:30.610 [INFO][17991.ScreenName.logScreen] settings
+250722 20:33:31.237 [INFO][17991.WarpApi+Registration.patch] Ended
+250722 20:33:31.239 [INFO][17991.DeviceTeamsClientDetailsSender.sendDeviceDetails] Teams device details have been sent to the server.
+250722 20:33:32.064 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:32.065 [INFO][17991.SupportVisibleProtocol.feedbackType] Feedback Button: Not valid (teams(type: _cloudflareoneagent.TeamsType.account))
+250722 20:33:32.618 [INFO][17991.ScreenName.logScreen] more_settings
+250722 20:33:32.757 [INFO][17991.ServiceDNSStatusOperation.queryTXTRecord] DNS TXT record query completed in 3.017261028289795 seconds.
+250722 20:33:32.757 [INFO][17991.MainViewModel.updateStatusAndInfo] Internet connection: true, tunnel connection status: connected, pause: none, trusted network: none, tunnel status: No captive portal, dns status: doh, service mode: WARP
+250722 20:33:32.759 [INFO][17991.UserDefaults.wrappedValue] Saved app_local_admin_code_date: nil
+250722 20:33:36.385 [INFO][17991.DiagnosticsViewModel.fetchWarpStats] Fetching updated tunnel stats
+250722 20:33:36.386 [INFO][17991.ServiceDNSStatusOperation.queryTXTRecord] Starting DNS TXT record query...
+250722 20:33:36.386 [INFO][17991.TunnelManager.sendMessage] Sending message {"type":"getWarpStats"}
+250722 20:33:36.430 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:36.434 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:36.450 [INFO][17991.DiagnosticsViewModel.fetchWarpStats] tunnel stats sent: 521136 recieved: 807976 handshake: Optional(2025-07-22 20:33:30 +0000)  rtt: 163 loss: 0.0
+250722 20:33:36.458 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:36.460 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:36.964 [INFO][17991.ScreenName.logScreen] diagnostics
+250722 20:33:37.033 [INFO][17991.ServiceDNSStatusOperation.queryTXTRecord] DNS TXT record query completed in 0.6473809480667114 seconds.
+250722 20:33:37.818 [INFO][17991.ConnectivityVerifier.checkConnectivityInsideTunnel] Connectivity verifier: Response for cdn-cgi/trace request inside the tunnel: fl=991f11
+h=connectivity.cloudflareclient.com
+ip=2a09:bac5:4dd3:26dc::3df:b
+ts=1753216417.498
+visit_scheme=https
+uag=Cloudflare%20One/2506100023.1 CFNetwork/3855.100.1 Darwin/25.0.0
+colo=LHR
+sliver=none
+http=http/2
+loc=NG
+tls=TLSv1.3
+sni=plaintext
+warp=plus
+gateway=off
+rbi=off
+kex=X25519MLKEM768
+).
+250722 20:33:37.819 [INFO][17991.AnalyticsEventLog.logEvent] connectivity_success
+250722 20:33:37.820 [INFO][17991.ConnectivityVerifier.complete] Connectivity verifier: Verification inside the tunnel has succeeded.
+250722 20:33:37.821 [INFO][17991.MainViewModel.updateStatusAndInfo] Internet connection: true, tunnel connection status: connected, pause: none, trusted network: none, tunnel status: No captive portal, dns status: doh, service mode: WARP
+250722 20:33:37.825 [INFO][17991.UserDefaults.wrappedValue] Saved app_local_admin_code_date: nil
+250722 20:33:37.831 [INFO][17991.ConnectivityVerifier.finish] Connectivity verifier: Connection verification has finished
+250722 20:33:37.832 [INFO][17991.MainViewModel.updateStatusAndInfo] Internet connection: true, tunnel connection status: connected, pause: none, trusted network: none, tunnel status: No captive portal, dns status: doh, service mode: WARP
+250722 20:33:37.833 [INFO][17991.ServiceDNSStatusOperation.queryTXTRecord] Starting DNS TXT record query...
+250722 20:33:37.835 [INFO][17991.UserDefaults.wrappedValue] Saved app_local_admin_code_date: nil
+250722 20:33:38.359 [INFO][17991.ServiceDNSStatusOperation.queryTXTRecord] DNS TXT record query completed in 0.5264240503311157 seconds.
+250722 20:33:38.361 [INFO][17991.MainViewModel.updateStatusAndInfo] Internet connection: true, tunnel connection status: connected, pause: none, trusted network: none, tunnel status: No captive portal, dns status: doh, service mode: WARP
+250722 20:33:38.366 [INFO][17991.UserDefaults.wrappedValue] Saved app_local_admin_code_date: nil
+250722 20:33:45.513 [INFO][17991.ScreenName.logScreen] debug_configuration
+250722 20:33:47.023 [INFO][17991.ServiceDNSStatusOperation.queryTXTRecord] Starting DNS TXT record query...
+250722 20:33:47.025 [INFO][17991.DiagnosticsViewModel.fetchWarpStats] Fetching updated tunnel stats
+250722 20:33:47.027 [INFO][17991.TunnelManager.sendMessage] Sending message {"type":"getWarpStats"}
+250722 20:33:47.075 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:47.078 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:47.093 [INFO][17991.DiagnosticsViewModel.fetchWarpStats] tunnel stats sent: 604048 recieved: 927886 handshake: Optional(2025-07-22 20:33:30 +0000)  rtt: 163 loss: 0.0
+250722 20:33:47.099 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:47.102 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:47.476 [INFO][17991.ScreenName.logScreen] diagnostics
+250722 20:33:47.708 [INFO][17991.ServiceDNSStatusOperation.queryTXTRecord] DNS TXT record query completed in 0.685467004776001 seconds.
+250722 20:33:49.718 [INFO][17991.TunnelManager.sendMessage] Sending message {"type":"getDNSLogs"}
+250722 20:33:50.280 [INFO][17991.ScreenName.logScreen] dns_logs
+250722 20:33:51.459 [INFO][17991.UserDefaults.wrappedValue] Saved web4app_app_shared_dns_log_is_enabled: ConfigManageableItem<Bool>(value: true, locked: true, visible: true)
+250722 20:33:51.461 [INFO][17991.TunnelManager.sendMessage] Sending message {"type":"getDNSLogs"}
+250722 20:33:51.999 [INFO][17991.ServiceDNSStatusOperation.queryTXTRecord] Starting DNS TXT record query...
+250722 20:33:52.002 [INFO][17991.DiagnosticsViewModel.fetchWarpStats] Fetching updated tunnel stats
+250722 20:33:52.005 [INFO][17991.TunnelManager.sendMessage] Sending message {"type":"getWarpStats"}
+250722 20:33:52.055 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:52.059 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:52.074 [INFO][17991.DiagnosticsViewModel.fetchWarpStats] tunnel stats sent: 608156 recieved: 934767 handshake: Optional(2025-07-22 20:33:30 +0000)  rtt: 163 loss: 0.0
+250722 20:33:52.079 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:52.082 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:33:52.582 [INFO][17991.ScreenName.logScreen] diagnostics
+250722 20:33:52.680 [INFO][17991.ServiceDNSStatusOperation.queryTXTRecord] DNS TXT record query completed in 0.6823339462280273 seconds.
+250722 20:33:53.184 [INFO][17991.TunnelManager.sendMessage] Sending message {"type":"getDNSLogs"}
+250722 20:33:53.738 [INFO][17991.ScreenName.logScreen] dns_logs
+250722 20:34:00.011 [INFO][17991.ServiceDNSStatusOperation.queryTXTRecord] Starting DNS TXT record query...
+250722 20:34:00.013 [INFO][17991.DiagnosticsViewModel.fetchWarpStats] Fetching updated tunnel stats
+250722 20:34:00.016 [INFO][17991.TunnelManager.sendMessage] Sending message {"type":"getWarpStats"}
+250722 20:34:00.068 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:34:00.072 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:34:00.087 [INFO][17991.DiagnosticsViewModel.fetchWarpStats] tunnel stats sent: 630104 recieved: 974545 handshake: Optional(2025-07-22 20:33:30 +0000)  rtt: 163 loss: 0.0
+250722 20:34:00.093 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:34:00.096 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:34:00.813 [INFO][17991.ServiceDNSStatusOperation.queryTXTRecord] DNS TXT record query completed in 0.8023539781570435 seconds.
+250722 20:34:00.922 [INFO][17991.ScreenName.logScreen] diagnostics
+250722 20:34:02.486 [INFO][17991.ScreenName.logScreen] routing_table
+250722 20:34:13.687 [INFO][17991.ServiceDNSStatusOperation.queryTXTRecord] Starting DNS TXT record query...
+250722 20:34:13.689 [INFO][17991.DiagnosticsViewModel.fetchWarpStats] Fetching updated tunnel stats
+250722 20:34:13.691 [INFO][17991.TunnelManager.sendMessage] Sending message {"type":"getWarpStats"}
+250722 20:34:13.739 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:34:13.742 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:34:13.757 [INFO][17991.DiagnosticsViewModel.fetchWarpStats] tunnel stats sent: 634616 recieved: 981590 handshake: Optional(2025-07-22 20:33:29 +0000)  rtt: 163 loss: 0.0
+250722 20:34:13.763 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:34:13.766 [INFO][17991.Keychain.getKeychainData] Keychain item {web4app_app_shared_secret_configuration} is found.
+250722 20:34:14.188 [INFO][17991.ScreenName.logScreen] diagnostics
+250722 20:34:14.402 [INFO][17991.ServiceDNSStatusOperation.queryTXTRecord] DNS TXT record query completed in 0.7157950401306152 seconds.
+250722 20:34:15.077 [INFO][17991.TunnelManager.sendMessage] Sending message {"type":"flushExtensionLogs"}
+250722 20:34:15.678 [INFO][17991.ScreenName.logScreen] console_logs
+250722 20:34:17.676 [INFO][17991.ScreenName.logScreen] console_log_details
+250722 20:35:20.227 [INFO][17991.ScreenName.logScreen] console_logs
+250722 20:35:20.908 [INFO][17991.TunnelManager.sendMessage] Sending message {"type":"flushExtensionLogs"}
+250722 20:35:21.563 [INFO][17991.ScreenName.logScreen] console_log_details
+250722 20:36:17.363 [INFO][17991.ScreenName.logScreen] console_logs
