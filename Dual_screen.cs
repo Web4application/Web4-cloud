@@ -1,5 +1,4 @@
 // Dual-Screen Mirrored Glass Shell Renderer
-
 using System;
 using UIKit;
 using Xamarin.Forms;
