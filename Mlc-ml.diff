@@ -1,6 +1,54 @@
-index.rst.txt
-index.rst
-main.rb
-readme.md.rst
-index.mdx
-docs.json
+diff --git a/mlc/model.py b/mlc/model.py
+index 2a4b6c1..9f3e8aa 100644
+--- a/mlc/model.py
++++ b/mlc/model.py
+@@ -1,12 +1,22 @@
+-import torch.nn as nn
++import torch
++import torch.nn as nn
+
+ class MLCModel(nn.Module):
+     def __init__(self, input_dim, hidden_dim):
+         super().__init__()
+-        self.fc = nn.Linear(input_dim, hidden_dim)
++        self.fc1 = nn.Linear(input_dim, hidden_dim)
++        self.relu = nn.ReLU()
++        self.fc2 = nn.Linear(hidden_dim, hidden_dim)
+
+     def forward(self, x):
+-        return self.fc(x)
++        x = self.fc1(x)
++        x = self.relu(x)
++        return self.fc2(x)
+
+diff --git a/mlc/train.py b/mlc/train.py
+index 8d21c9a..bc77e10 100644
+--- a/mlc/train.py
++++ b/mlc/train.py
+@@ -5,10 +5,16 @@ from model import MLCModel
+
+ LEARNING_RATE = 0.01
+ EPOCHS = 10
++SEED = 42
+
++torch.manual_seed(SEED)
++
+ model = MLCModel(input_dim=128, hidden_dim=256)
+ optimizer = torch.optim.Adam(
+     model.parameters(),
+-    lr=LEARNING_RATE
++    lr=LEARNING_RATE,
++    weight_decay=1e-4
+ )
+
+ diff --git a/config/train.yaml b/config/train.yaml
+index 3e12fa1..c0a91de 100644
+--- a/config/train.yaml
++++ b/config/train.yaml
+@@ -1,5 +1,8 @@
+ learning_rate: 0.01
+ epochs: 10
+ batch_size: 32
++weight_decay: 0.0001
++seed: 42
+ optimizer: adam
