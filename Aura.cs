@@ -1,4 +1,4 @@
-using System;
+using System; 
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Net.Http.Headers;
@@ -30,7 +30,7 @@ namespace csharp_login_example
         {
             using var client = new HttpClient()
             {
-                BaseAddress = new Uri("http://localhost:8001/")
+                BaseAddress = new Uri("http://localhost:8181/")
             };
 
             client.DefaultRequestHeaders
@@ -46,9 +46,9 @@ namespace csharp_login_example
         {
             var loginData = new LoginContent()
             {
-                ClientId = "aura",
+                ClientId = "auraecosystem",
                 AuthToken = "441be0dc4da0da9c3f196da62d72419883b75eb2023c0e5a6f202564a2f82234",
-                Login = "super",
+                Login = "admin",
                 PasswordHash = "86f7e437faa5a7fce15d1ddcb9eaeaea377667b8",
                 PassEncrypted = true,
             };
