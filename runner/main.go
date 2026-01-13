@@ -9,28 +9,24 @@ import (
 	"math/rand"
 	"net/http"
 	"os"
+	"os/signal"
 	"sync"
-	"sync/atomic"
+	"syscall"
 	"time"
-
-	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 // --------------------- CONFIG ---------------------
 type Config struct {
-	MaxConcurrency int       `json:"max_concurrency"`
-	MaxRetries     int       `json:"max_retries"`
-	Tasks          []TaskSpec `json:"tasks"` // dynamic tasks
+	MaxConcurrency int        `json:"max_concurrency"`
+	MaxRetries     int        `json:"max_retries"`
+	Tasks          []TaskSpec `json:"tasks"`
 }
 
-// TaskSpec defines a single task in Web4
 type TaskSpec struct {
-	Type    string `json:"type"`    // "download", "ai", "blockchain", "storage"
-	Payload string `json:"payload"` // URL, AI prompt, contract action, file path
+	Type    string `json:"type"`
+	Payload string `json:"payload"`
 }
 
-// Load config from ENV or defaults
 func loadConfig() Config {
 	cfg := Config{
 		MaxConcurrency: 3,
@@ -46,115 +42,117 @@ func loadConfig() Config {
 	if v := os.Getenv("CONFIG_JSON"); v != "" {
 		json.Unmarshal([]byte(v), &cfg)
 	}
-
 	return cfg
 }
 
-// --------------------- METRICS ---------------------
-var (
-	taskSuccess = prometheus.NewCounterVec(
-		prometheus.CounterOpts{
-			Name: "web4_task_success_total",
-			Help: "Number of successfully completed tasks",
-		},
-		[]string{"task_type"},
-	)
-	taskFailure = prometheus.NewCounterVec(
-		prometheus.CounterOpts{
-			Name: "web4_task_failure_total",
-			Help: "Number of failed tasks",
-		},
-		[]string{"task_type"},
-	)
-)
-
-func init() {
-	prometheus.MustRegister(taskSuccess, taskFailure)
-}
-
-// --------------------- TASK RUNNER ---------------------
+// --------------------- TASK ---------------------
 type Task struct {
 	ID         int
 	Spec       TaskSpec
 	MaxRetries int
 }
 
-func (t Task) Run() {
+func (t Task) Run(ctx context.Context) {
 	for attempt := 0; attempt <= t.MaxRetries; attempt++ {
+		select {
+		case <-ctx.Done():
+			logTask(t.ID, attempt, "Task canceled")
+			return
+		default:
+		}
+
+		start := time.Now()
 		logTask(t.ID, attempt, fmt.Sprintf("Starting task type=%s payload=%s", t.Spec.Type, t.Spec.Payload))
-		err := t.execute()
+		err := t.execute(ctx)
+		duration := time.Since(start).Seconds()
+
 		if err != nil {
-			logTask(t.ID, attempt, fmt.Sprintf("Attempt %d failed: %v", attempt, err))
-			taskFailure.WithLabelValues(t.Spec.Type).Inc()
+			logTask(t.ID, attempt, fmt.Sprintf("Attempt %d failed after %.2fs: %v", attempt, duration, err))
 			if attempt < t.MaxRetries {
-				time.Sleep(time.Duration(500*int64(1<<attempt)) * time.Millisecond) // exponential backoff
+				backoff := time.Duration(500*int64(1<<attempt)) * time.Millisecond
+				time.Sleep(backoff)
 			}
 			continue
 		}
-		logTask(t.ID, attempt, fmt.Sprintf("Attempt %d succeeded", attempt))
-		taskSuccess.WithLabelValues(t.Spec.Type).Inc()
+		logTask(t.ID, attempt, fmt.Sprintf("Attempt %d succeeded in %.2fs", attempt, duration))
 		break
 	}
 }
 
-// --------------------- TASK TYPES ---------------------
-func (t Task) execute() error {
+func (t Task) execute(ctx context.Context) error {
 	switch t.Spec.Type {
 	case "download":
-		return taskDownload(t.Spec.Payload)
+		return taskDownload(ctx, t.Spec.Payload)
 	case "ai":
-		return taskAI(t.Spec.Payload)
+		return taskAI(ctx, t.Spec.Payload)
 	case "blockchain":
-		return taskBlockchain(t.Spec.Payload)
+		return taskBlockchain(ctx, t.Spec.Payload)
 	case "storage":
-		return taskStorage(t.Spec.Payload)
+		return taskStorage(ctx, t.Spec.Payload)
 	default:
 		return fmt.Errorf("unknown task type %s", t.Spec.Type)
 	}
 }
 
-func taskDownload(url string) error {
-	resp, err := http.Get(url)
-	if err != nil || resp.StatusCode >= 400 {
+// --------------------- TASK TYPES ---------------------
+func taskDownload(ctx context.Context, url string) error {
+	req, _ := http.NewRequestWithContext(ctx, "GET", url, nil)
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
 		return fmt.Errorf("download failed: %v", err)
 	}
 	defer resp.Body.Close()
 
-	fileName := fmt.Sprintf("task_download_%d.html", rand.Intn(1000))
+	if resp.StatusCode >= 400 {
+		return fmt.Errorf("download failed with status %d", resp.StatusCode)
+	}
+
+	fileName := fmt.Sprintf("task_download_%d.html", time.Now().UnixNano())
 	out, err := os.Create(fileName)
 	if err != nil {
 		return err
 	}
 	defer out.Close()
-	io.Copy(out, resp.Body)
-	return nil
+
+	_, err = io.Copy(out, resp.Body)
+	return err
 }
 
-func taskAI(prompt string) error {
-	time.Sleep(time.Millisecond * 500)
+func taskAI(ctx context.Context, prompt string) error {
+	select {
+	case <-ctx.Done():
+		return fmt.Errorf("AI task canceled")
+	case <-time.After(500 * time.Millisecond):
+	}
 	log.Printf("[AI] Generated content for prompt: %s", prompt)
 	return nil
 }
 
-func taskBlockchain(contractAction string) error {
-	// Placeholder: integrate Ethereum SDK / Go-Ethereum here
-	time.Sleep(time.Millisecond * 300)
+func taskBlockchain(ctx context.Context, action string) error {
+	select {
+	case <-ctx.Done():
+		return fmt.Errorf("Blockchain task canceled")
+	case <-time.After(300 * time.Millisecond):
+	}
 	if rand.Float64() < 0.2 {
 		return fmt.Errorf("blockchain tx failed")
 	}
-	log.Printf("[Blockchain] Executed action: %s", contractAction)
+	log.Printf("[Blockchain] Executed action: %s", action)
 	return nil
 }
 
-func taskStorage(filePath string) error {
-	// Placeholder: integrate IPFS/Arweave SDK here
-	time.Sleep(time.Millisecond * 200)
-	log.Printf("[Storage] Uploaded file: %s", filePath)
+func taskStorage(ctx context.Context, path string) error {
+	select {
+	case <-ctx.Done():
+		return fmt.Errorf("Storage task canceled")
+	case <-time.After(200 * time.Millisecond):
+	}
+	log.Printf("[Storage] Uploaded file: %s", path)
 	return nil
 }
 
 // --------------------- LOGGING ---------------------
-func logTask(taskID int, attempt int, msg string) {
+func logTask(taskID, attempt int, msg string) {
 	entry := map[string]interface{}{
 		"timestamp": time.Now().Format(time.RFC3339),
 		"taskID":    taskID,
@@ -171,11 +169,8 @@ func main() {
 	cfg := loadConfig()
 	log.Printf("Web4 Job Runner Configuration: %+v", cfg)
 
-	// Prometheus HTTP metrics endpoint
-	go func() {
-		http.Handle("/metrics", promhttp.Handler())
-		log.Fatal(http.ListenAndServe(":2112", nil))
-	}()
+	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer cancel()
 
 	var wg sync.WaitGroup
 	sem := make(chan struct{}, cfg.MaxConcurrency)
@@ -183,13 +178,9 @@ func main() {
 	for i, spec := range cfg.Tasks {
 		wg.Add(1)
 		sem <- struct{}{}
-		go func(taskID int, taskSpec TaskSpec) {
+		go func(taskID int, ts TaskSpec) {
 			defer wg.Done()
-			Task{
-				ID:         taskID,
-				Spec:       taskSpec,
-				MaxRetries: cfg.MaxRetries,
-			}.Run()
+			Task{ID: taskID, Spec: ts, MaxRetries: cfg.MaxRetries}.Run(ctx)
 			<-sem
 		}(i, spec)
 	}
