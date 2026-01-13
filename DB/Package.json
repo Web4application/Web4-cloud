@@ -1,0 +1,6 @@
+{
+    "modelName": "Lmlm",
+    "tasks": ["text-analysis","code-analysis","prediction","multi-modal"],
+    "endpoint": "http://lmlm.local",
+    "accessRoles": ["ROLE_AI","ROLE_ADMIN"]
+}
