@@ -1,4 +1,4 @@
-NOTE	all standard compliant implementations should pass these : 2002-05-31
+NOTE	all standard compliant implementations should pass these : 
 
 BE	abracadabra$	abracadabracadabra	(7,18)
 BE	a...b		abababbb		(2,7)
