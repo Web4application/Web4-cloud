@@ -2,7 +2,7 @@
 setuptools>=65.5.0
 wheel>=0.42.0
 Flask==2.2.5
-Flask-Cors==6.0.0
+Flask-Cors==6.0.2
 Flask-SQLAlchemy==3.0.0
 Flask-RESTful==0.3.9
 Flask-Migrate==4.1.0
