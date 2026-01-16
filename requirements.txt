@@ -41,7 +41,7 @@ black==23.3.0
 mypy==1.12.0; python_version >= '3.13'
 mypy==1.11.2; python_version >= '3.8' and python_version < '3.13'
 mypy==1.4.1; python_version < '3.8'
-webdriver-manager==4.0.1
+webdriver-manager==4.0.2
 
 # AI and ML Libraries
 keras==2.12.0
