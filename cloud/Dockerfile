@@ -1,6 +1,6 @@
 
 # Build stage
-FROM golang:1.20 AS builder
+FROM golang:1.25 AS builder
 WORKDIR /app
 COPY . .
 RUN go mod init web4app || true
